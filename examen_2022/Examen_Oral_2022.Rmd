@@ -1,0 +1,68 @@
+---
+title: "Economía - Examen Oral"
+date: "2022-12-22"
+output:
+  pagedown::html_paged:
+    toc: false
+    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    self_contained: false
+# uncomment this line to produce HTML and PDF in RStudio:
+knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE,
+                      dev = "png",
+                      dev.args = list(type="cairo-png"))
+
+library(ggplot2)
+library(tibble)
+library(polynom)
+library(kableExtra)
+```
+
+
+
+
+__Estructuras de Mercado__
+
+Explicar las diferencias entre un mercado que funciona en competencia perfecta y uno que funciona como un monopolio. En particular, compare:
+
+- Cantidad de oferentes y demandantes.
+- Maximización de beneficios de las empresas. (Ingreso marginal y precio)
+- Cantidad producida y precio de equilibrio.
+- Eficiencia.
+
+
+
+__Bienes Públicos __
+
+Considere una fábrica que genera contaminación. 
+
+- Explicar la diferencia entre el costo marginal social y el costo marginal privado.
+- Graficar el equilibrio de mercado sin intervención. Analice la eficiencia de esta solución.
+- ¿Qué solución pueden implementar los gobiernos en estos casos para lograr un resultado más eficiente?
+
+
+
+<!-- __Tema 1: Pobreza__ -->
+
+<!-- - Definición -->
+<!-- - Métodos de medición. -->
+<!-- - Evolución reciente -->
+<!-- - Situación actual (pobreza por edades, impacto COVID) -->
+
+\newpage
+
+__Desempleo (Silva)__
+
+- Definición
+- Indicadores
+- Posibles causas (impacto de salario mínimo)
+- Tipos (friccional, estructural, etc.).
+- Evolución Reciente en Uruguay, relación con PIB.
+
+
+
+

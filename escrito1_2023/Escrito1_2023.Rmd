@@ -1,9 +1,8 @@
 ---
 title: "Economía - Escrito 1"
-date: "2022-04-08"
+date: "2023-05-11"
 output:
   pagedown::html_paged:
-    toc: true
     # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
     self_contained: false
 # uncomment this line to produce HTML and PDF in RStudio:
@@ -24,9 +23,18 @@ library(polynom)
 
 ```{css}
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@300;700&display=swap');
+
+
 body {
   font-family: 'Merriweather', serif;
 }
+h1, h2, h3, h4, h5, h6, .nav, .article-duration, .archive-item-link, .footer {
+  font-family: 'Lato', sans-serif;
+}
+
+
 
 ```
 
@@ -43,7 +51,7 @@ Dibuje el diagrama de oferta y demanda antes y después de la ocurrencia de cada
 
 __Oferta y Demanda__ En el mercado de un bien, la demanda es $Q_d = 200 - 12P$ y la oferta $Q_s = 56 + 6P$. Encontrar el equilibrio del mercado y graficarlo. Explicar que pasaría si el precio vigente en el mercado fuera 9. ¿Y si fuera 7?
 
-__Salario mínimo__ La siguiente gráfica muestra el equilibrio en el mercado de trabajadores de la construcción.
+__Precios máximos__ La siguiente gráfica muestra el equilibrio en el mercado de viviendas para alquiler en Montevideo.
 
 </br>
 
@@ -51,13 +59,13 @@ __Salario mínimo__ La siguiente gráfica muestra el equilibrio en el mercado de
 
 
 of <- tibble(
-  q=c(4, 8),
-  p=c(2, 4)
+  q=c(400, 800),
+  p=c(200, 400)
 )
 
 dem <- tibble(
-  q=c(4, 12),
-  p=c(6, 2)
+  q=c(400, 1200),
+  p=c(600, 200)
 )
 
 
@@ -70,18 +78,18 @@ dem_p <- poly.calc(dem$q, dem$p) %>%
 theme_set(theme_minimal(base_size=16))
 
 puntos <- tibble(
-  q=c(8),
-  p=c(4)
+  q=c(800),
+  p=c(400)
 )
 
 ggplot() + 
-  geom_function(fun=of_p, xlim=c(2, 14), size=1.2) + 
-  geom_function(fun=dem_p, xlim=c(2, 14), size=1.2) +
+  geom_function(fun=of_p, xlim=c(200, 1400), size=1.2) + 
+  geom_function(fun=dem_p, xlim=c(200, 1400), size=1.2) +
   geom_point(data=puntos, aes(q, p)) +
-  scale_x_continuous(limits = c(0, 14),
+  scale_x_continuous(limits = c(0, 1400),
                      expand = expansion(add=0),
-                     breaks=seq(2,14, by=2)) +
-  scale_y_continuous(breaks=1:7, expand=expansion(add=0)) +
+                     breaks=seq(200,1400, by=200)) +
+  scale_y_continuous(breaks=seq(100,700, by=100), expand=expansion(add=0)) +
   # Eje Y
   geom_segment(aes(x=0, y=0, xend=0, yend=Inf), size=1, alpha=.6) + 
   # Eje X
@@ -94,10 +102,9 @@ ggplot() +
 
 - ¿Cuál es el equilibrio si el gobierno no interviene?
 
-- Si el gobierno impone un salario mínimo de $3, ¿cuál será el nivel de empleo? ¿Esta política genera desempleo?
+- Si el gobierno impone un precio máximo de $600, ¿cuál será la cantidad comprada en el mercado? ¿Esta política genera un desequilibrio?
 
-- Si el gobierno impone un salario mínimo de $6, ¿cuál será el nivel de empleo? ¿Esta política genera desempleo?
-
+- Si el gobierno impone un precio máximo de $300, ¿cuál será la cantidad comprada en el mercado? ¿Esta política genera un desequilibrio?
 
 __Elasticidad__ La elasticidad precio de la demanda de cigarrillos es 0.4. Si se quiere reducir el consumo en un 15%, ¿cuánto debería subir el precio de los cigarrillos?
 

@@ -1,0 +1,177 @@
+---
+title: "Economía - Examen"
+date: "2022-12-22"
+output:
+  pagedown::html_paged:
+    toc: false
+    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    self_contained: false
+# uncomment this line to produce HTML and PDF in RStudio:
+knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE,
+                      dev = "png",
+                      dev.args = list(type="cairo-png"))
+
+library(ggplot2)
+library(tibble)
+library(polynom)
+library(kableExtra)
+```
+
+__Oferta y Demanda__  Grafique el efecto de los siguientes shocks en el equilibrio del mercado de un bien de:
+
+  - Una campaña de publicidad que exitosa para ese bien.
+  - Un aumento en el precio de un bien sustituto.
+  - Un aumento en el precio de un insumo para su producción.
+
+Dibuje el diagrama de oferta y demanda antes y después de la ocurrencia de cada shock. Explique el efecto sobre las variables endógenas.
+
+
+__Oferta y Demanda__ En el mercado de un bien, la demanda es $Q_d = 200 - 12P$ y la oferta $Q_s = 56 + 6P$. Encontrar el equilibrio del mercado y graficarlo. Explicar que pasaría si el precio vigente en el mercado fuera 9. ¿Y si fuera 7?
+
+\newpage
+
+__Salario mínimo__ La siguiente gráfica muestra el equilibrio en el mercado de trabajadores de la construcción.
+
+
+```{r}
+
+
+of <- tibble(
+  q=c(4, 8),
+  p=c(2, 4)
+)
+
+dem <- tibble(
+  q=c(4, 12),
+  p=c(6, 2)
+)
+
+
+of_p <- poly.calc(of$q, of$p) %>% 
+  as.function()
+
+dem_p <- poly.calc(dem$q, dem$p) %>% 
+  as.function
+
+theme_set(theme_minimal(base_size=16))
+
+puntos <- tibble(
+  q=c(8),
+  p=c(4)
+)
+
+ggplot() + 
+  geom_function(fun=of_p, xlim=c(2, 14), size=1.2) + 
+  geom_function(fun=dem_p, xlim=c(2, 14), size=1.2) +
+  geom_point(data=puntos, aes(q, p)) +
+  scale_x_continuous(limits = c(0, 14),
+                     expand = expansion(add=0),
+                     breaks=seq(2,14, by=2)) +
+  scale_y_continuous(breaks=1:7, expand=expansion(add=0)) +
+  # Eje Y
+  geom_segment(aes(x=0, y=0, xend=0, yend=Inf), size=1, alpha=.6) + 
+  # Eje X
+  geom_segment(aes(x=-Inf, y=0, xend=Inf, yend=0), size=1, alpha=.6) +
+  labs(x="Q", y="P")
+```
+
+
+
+- ¿Cuál es el equilibrio si el gobierno no interviene?
+
+- Si el gobierno impone un salario mínimo de $3, ¿cuál será el nivel de empleo? ¿Esta política genera desempleo?
+
+- Si el gobierno impone un salario mínimo de $6, ¿cuál será el nivel de empleo? ¿Esta política genera desempleo?
+
+
+__Competencia Perfecta__ Suponga que una automotóra que vende autos en competencia perfecta tiene un costo medio de \$10.000 por unidad vendida y un precio de \$12.500. ¿Cómo son los resultados económicos de la empresa? ¿Qué sucede en este mercado en el largo plazo?
+
+
+__Monopolio__ Un mercado opera como un monopolio con la siguiente estructura de demanda y costos:
+
+```{r include=FALSE, message=FALSE}
+library(tidyverse)
+library(extrafont)
+loadfonts()
+theme_set(theme_minimal(base_family = 'Montserrat') +
+            theme(panel.grid = element_line(color="gray80")))
+knitr::opts_chunk$set(
+  message=FALSE, 
+  echo=FALSE,
+  warning=FALSE,
+  comment = '', fig.width = 4.5, fig.height = 4.5
+)
+
+
+```
+
+
+```{r warning=FALSE, echo=FALSE}
+
+d_df <- tibble(x=c(0, 40), 
+               y=c(10, 2))
+
+img_df <- tibble(x=c(0, 20),
+               y=c(10, 2))
+
+cmg_df <- tibble(x=c(2, 20, 30, 40),
+                 y=c(1.1, 2, 4, 7))
+
+cme_df <- tibble(x=c(0, 10, 20, 30, 50),
+                 y=c(8, 5, 4, 4, 6))
+
+cme_fun <- splinefun(cme_df$x, cme_df$y)
+d_fun <- splinefun(d_df$x, d_df$y)
+img_fun <- splinefun(img_df$x, img_df$y)
+cmg_fun <- splinefun(cmg_df$x, cmg_df$y)
+
+ggplot(data.frame(x=0, y=0)) + 
+  geom_function(fun=d_fun, xlim=c(0,45)) +
+  annotate("text", y=1, x=46, label="D") +
+  geom_function(fun=img_fun, xlim=c(0, 22.5)) +
+  annotate("text", y=1, x=25, label="Img") +
+  geom_function(fun=cme_fun, xlim=c(1, 55)) +
+  annotate("text", y=6.4, x=50, label="CMe") +
+  geom_function(fun=cmg_fun, xlim=c(1, 40)) +
+  annotate("text", y=7.5, x=40, label="CMg") +
+  scale_y_continuous(limits = c(0, 10), breaks=1:10) +
+  scale_x_continuous(limits = c(0, 50)) +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  labs(x="Q", y="Precio y Costos")
+```
+
+
+- Calcular la cantidad producida y el nivel de precios.
+- Calcular el ingreso total de la empresa.
+- Calcular el costo total de la empresa.
+
+\newpage
+
+__Bienes Públicos__ Considere una fábrica que genera contaminación. 
+
+- Explicar la diferencia entre el costo marginal social y el costo marginal privado.
+- Graficar el equilibrio de mercado sin intervención. Analice la eficiencia de esta solución.
+- ¿Qué solución pueden implementar los gobiernos en estos casos para lograr un resultado más eficiente?
+
+
+__Distribución del Ingreso__   La siguiente table muestra la participación en la distribución del ingreso de dos países (A y B):
+
+```{r}
+tibble(
+  quintil=c("20% más pobre", "Segundo 20%",
+            "Tercer 20%",    "Cuarto 20%",
+            "20% más rico"),
+  a=c("8.7%", "14%", "18.1%", "22.9%", "36.3"),
+  b=c("3.6%", "8.9%", "14.8%", "23.1%", "49.6%")) %>% 
+  knitr::kable(col.names = c("Quintil", "País A", "País B")) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+- Graficar la curva de igualdad perfecta. Explicar.
+- Calcular la curva de Lorenz para los dos países. ¿Cuál es el más igualitario?
