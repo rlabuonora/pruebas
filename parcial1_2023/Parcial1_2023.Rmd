@@ -23,12 +23,12 @@ library(kableExtra)
 ```
 
 
-__Oferta y Demanda__  Grafique el efecto de los siguientes shocks en el equilibrio del mercado de un bien de:
+__Oferta y Demanda__  Grafique el efecto de los siguientes shocks en el equilibrio del mercado de galletitas:
 
-  - La aplicación
+  - La obligación de poner un octógono advirtiendo que tiene demasiada azúcar.
   - Una campaña publicitaria exitosa.
-  - Un aumento en el precio de un bien sustituto.
-  - Un aumento en el precio de un insumo para su producción.
+  - Un reducción en el precio de los bizcochos. 
+  - Un aumento en el precio la leche chocolatada.
 
 Dibuje el diagrama de oferta y demanda antes y después de la ocurrencia de cada shock. Explique el efecto sobre las variables endógenas.
 
